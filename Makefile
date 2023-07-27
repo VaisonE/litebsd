@@ -1,5 +1,5 @@
 #
-# $FreeBSD$
+# $LiteBSD$
 #
 # The common user-driven targets are (for a complete list, see build(7)):
 #
