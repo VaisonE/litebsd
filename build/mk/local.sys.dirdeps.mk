@@ -122,7 +122,7 @@ ${var}=		${HOST_${var}}
 .if ${MACHINE:Nhost:Ncommon} != "" && ${MACHINE} != ${HOST_MACHINE}
 # cross-building
 .if !defined(FREEBSD_REVISION)
-FREEBSD_REVISION!= sed -n '/^REVISION=/{s,.*=,,;s,",,g;p; }' ${SRCTOP}/build/conf/newvers.sh
+FREEBSD_REVISION!= sed -n '/^REVISION=/{s,.*=,,;s,",,g;p; }' ${SRCTOP}/kernel/conf/newvers.sh
 .export FREEBSD_REVISION
 .endif
 CROSS_TARGET_FLAGS= -target ${MACHINE_ARCH}-unknown-freebsd${FREEBSD_REVISION}
