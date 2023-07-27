@@ -54,7 +54,7 @@
 #                       NXTP defaults to /nxb-bin.
 #
 # This makefile is simple by design. The FreeBSD make automatically reads
-# the /usr/share/mk/sys.mk unless the -m argument is specified on the
+# the /usr/build/mk/sys.mk unless the -m argument is specified on the
 # command line. By keeping this makefile simple, it doesn't matter too
 # much how different the installed mk files are from those in the source
 # tree. This makefile executes a child make process, forcing it to use
@@ -157,7 +157,7 @@ __DO_KERNELS?=yes
 .include "targets/Makefile"
 .else
 
-.include "${.CURDIR}/share/mk/bsd.compat.pre.mk"
+.include "${.CURDIR}/build/mk/bsd.compat.pre.mk"
 
 TGTS=	all all-man buildenv buildenvvars buildetc buildkernel buildworld \
 	check check-old check-old-dirs check-old-files check-old-libs \
@@ -277,14 +277,14 @@ HAVE_MAKE=	fmake
 NEED_MAKE_UPGRADE= t
 .endif
 .if exists(${MYMAKE})
-SUB_MAKE:= ${MYMAKE} -m ${.CURDIR}/share/mk
+SUB_MAKE:= ${MYMAKE} -m ${.CURDIR}/build/mk
 .elif defined(NEED_MAKE_UPGRADE)
 # It may not exist yet but we may cause it to.
 # In the case of fmake, upgrade_checks may cause a newer version to be built.
 SUB_MAKE= `test -x ${MYMAKE} && echo ${MYMAKE} || echo ${MAKE}` \
-	-m ${.CURDIR}/share/mk
+	-m ${.CURDIR}/build/mk
 .else
-SUB_MAKE= ${MAKE} -m ${.CURDIR}/share/mk
+SUB_MAKE= ${MAKE} -m ${.CURDIR}/build/mk
 .endif
 
 _MAKE=	PATH=${PATH:Q} MAKE_CMD="${MAKE}" ${SUB_MAKE} -f Makefile.inc1 \
