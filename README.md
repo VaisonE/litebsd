@@ -5,7 +5,6 @@ LiteBSD is an operating system based on freebsd-src for home and desktop compute
 LiteBSD is licensed under the GNU GPL v.3
 
 # Source Roadmap
----------------
 | Directory | Description |
 | --------- | ----------- |
 | bin | All packages |
