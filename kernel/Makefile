@@ -1,4 +1,4 @@
-# $FreeBSD$
+# $LiteBSD$
 
 # Directories to include in cscope name file and TAGS.
 CSCOPEDIRS=	bsm cam cddl compat conf contrib crypto ddb dev fs gdb \
