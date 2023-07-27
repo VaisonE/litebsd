@@ -407,7 +407,7 @@ _guard: .PHONY
 	@false
 
 STARTTIME!= LC_ALL=C date
-CHECK_TIME!= cmp=`mktemp`; find ${.CURDIR}/sys/sys/param.h -newer "$$cmp" && rm "$$cmp"; echo
+CHECK_TIME!= cmp=`mktemp`; find ${.CURDIR}/kernel/sys/param.h -newer "$$cmp" && rm "$$cmp"; echo
 .if !empty(CHECK_TIME)
 .error check your date/time: ${STARTTIME}
 .endif
