@@ -526,7 +526,7 @@ OSRELDATE=	0
 # Set VERSION for CTFMERGE to use via the default CTFFLAGS=-L VERSION.
 .for _V in BRANCH REVISION TYPE
 .if !defined(_${_V})
-_${_V}!=	eval $$(awk '/^${_V}=/{print}' ${SRCTOP}/sys/conf/newvers.sh); echo $$${_V}
+_${_V}!=	eval $$(awk '/^${_V}=/{print}' ${SRCTOP}/kernel/conf/newvers.sh); echo $$${_V}
 .export _${_V}
 .endif
 .endfor
