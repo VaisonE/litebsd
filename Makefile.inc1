@@ -1,5 +1,5 @@
 #
-# $LiteBSD$
+# $litebsd$ 
 #
 # Make command line options:
 #	-DNO_CLEANDIR run ${MAKE} clean, instead of ${MAKE} cleandir
