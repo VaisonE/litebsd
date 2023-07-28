@@ -30,7 +30,7 @@
  * reference as the first parameter.
  */
 
-#include "ah_osdep.h"
+#include <ath/ah_osdep.h>
 
 /*
  * Endianness macros; used by various structures and code.
