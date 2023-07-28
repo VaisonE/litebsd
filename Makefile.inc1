@@ -1,5 +1,5 @@
 #
-# $FreeBSD$
+# $LiteBSD$
 #
 # Make command line options:
 #	-DNO_CLEANDIR run ${MAKE} clean, instead of ${MAKE} cleandir
@@ -45,7 +45,7 @@
 # doxygen     - build API documentation of the kernel
 #
 # Standard targets (not defined here) are documented in the makefiles in
-# /usr/share/mk.  These include:
+# /usr/build/mk.  These include:
 #		obj depend all install clean cleandepend cleanobj
 
 .if !defined(TARGET) || !defined(TARGET_ARCH)
@@ -60,7 +60,7 @@ SRCDIR?=	${.CURDIR}
 LOCALBASE?=	/usr/local
 TIME_ENV ?= time env
 
-.include "share/mk/src.tools.mk"
+.include "build/mk/src.tools.mk"
 
 # Cross toolchain changes must be in effect before bsd.compiler.mk
 # so that gets the right CC, and pass CROSS_TOOLCHAIN to submakes.
@@ -112,11 +112,11 @@ MK_CLANG_BOOTSTRAP=	no
 _NO_INCLUDE_LINKERMK=	t
 # We also want the X_COMPILER* variables if we are using an external toolchain.
 _WANT_TOOLCHAIN_CROSS_VARS=	t
-.include "share/mk/bsd.compiler.mk"
+.include "build/mk/bsd.compiler.mk"
 .undef _NO_INCLUDE_LINKERMK
 .undef _WANT_TOOLCHAIN_CROSS_VARS
 # src.opts.mk depends on COMPILER_FEATURES
-.include "share/mk/src.opts.mk"
+.include "build/mk/src.opts.mk"
 
 .if ${TARGET} == ${MACHINE}
 TARGET_CPUTYPE?=${CPUTYPE}
@@ -210,7 +210,7 @@ MK_LLD_BOOTSTRAP=	no
 
 # We also want the X_LINKER* variables if we are using an external toolchain.
 _WANT_TOOLCHAIN_CROSS_VARS=	t
-.include "share/mk/bsd.linker.mk"
+.include "build/mk/bsd.linker.mk"
 .undef _WANT_TOOLCHAIN_CROSS_VARS
 
 # Begin WITH_SYSTEM_COMPILER / WITH_SYSTEM_LD
@@ -575,7 +575,7 @@ PKG_WWW?=		https://www.FreeBSD.org
 
 .if !defined(_MKSHOWCONFIG)
 _CPUTYPE!=	MAKEFLAGS= CPUTYPE=${_TARGET_CPUTYPE} ${MAKE} -f /dev/null \
-		-m ${.CURDIR}/share/mk MK_AUTO_OBJ=no -V CPUTYPE
+		-m ${.CURDIR}/build/mk MK_AUTO_OBJ=no -V CPUTYPE
 .if ${_CPUTYPE} != ${_TARGET_CPUTYPE}
 .error CPUTYPE global should be set with ?=.
 .endif
@@ -856,7 +856,7 @@ XCFLAGS+=	--sysroot=${WORLDTMP}
 XCFLAGS+=	${BFLAGS}
 .endif
 
-.include "share/mk/bsd.compat.pre.mk"
+.include "build/mk/bsd.compat.pre.mk"
 .for LIBCOMPAT in ${_ALL_LIBCOMPATS}
 .if ${MK_LIB${LIBCOMPAT}} == "yes"
 _LIBCOMPATS+=	${LIBCOMPAT}
@@ -3463,8 +3463,8 @@ check-old: check-old-files check-old-libs check-old-dirs .PHONY
 # ignore lower case knobs (not for use with WITH*)
 #
 showconfig: .PHONY
-	@(${MAKE} -n -f ${.CURDIR}/sys/conf/kern.opts.mk -V dummy -dg1 UPDATE_DEPENDFILE=no NO_OBJ=yes MACHINE=${TARGET} MACHINE_ARCH=${TARGET_ARCH}; \
-	  ${MAKE} -n -f ${.CURDIR}/share/mk/src.opts.mk -V dummy -dg1 UPDATE_DEPENDFILE=no NO_OBJ=yes) 2>&1 | grep '^MK_[A-Z]' | sort -u
+	@(${MAKE} -n -f ${.CURDIR}/kernel/conf/kern.opts.mk -V dummy -dg1 UPDATE_DEPENDFILE=no NO_OBJ=yes MACHINE=${TARGET} MACHINE_ARCH=${TARGET_ARCH}; \
+	  ${MAKE} -n -f ${.CURDIR}/build/mk/src.opts.mk -V dummy -dg1 UPDATE_DEPENDFILE=no NO_OBJ=yes) 2>&1 | grep '^MK_[A-Z]' | sort -u
 
 .if !empty(KRNLOBJDIR) && !empty(KERNCONF)
 DTBOUTPUTPATH= ${KRNLOBJDIR}/${KERNCONF}/
